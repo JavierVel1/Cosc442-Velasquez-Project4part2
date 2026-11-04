@@ -49,12 +49,30 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.6.4</version>
-
                 <configuration>
                     <mainClass>game.ApplicationMain</mainClass>
                     <classpathScope>compile</classpathScope>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.20.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>1.2.3</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <targetClasses>
+                        <param>game.*</param>
+                    </targetClasses>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
