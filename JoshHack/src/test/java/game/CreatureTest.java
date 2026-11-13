@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import java.awt.Color;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -48,6 +49,7 @@ public class CreatureTest {
         //act and assert
         assertEquals(0, creature.hp());
         assertEquals("Death By cookie", creature.causeOfDeath());
-        assertNull(world.creature(1, 1, 0)); 
+        assertNull(world.creature(1, 1, 0));
+        assertNotNull(world.item(1, 1, 0));
     }
 }
