@@ -9,6 +9,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
 
     defaults:
       run:
@@ -27,14 +30,26 @@ jobs:
           cache-dependency-path: JoshHack/pom.xml
 
       - name: Run JUnit regression tests
-        run: ./mvnw test
+        run: |
+          chmod +x mvnw
+          ./mvnw test
 
       - name: Run PIT mutation testing
         run: ./mvnw test-compile org.pitest:pitest-maven:mutationCoverage
 
+      - name: Run SpotBugs static analysis
+        run: ./mvnw spotbugs:spotbugs
+
+      - name: Upload SpotBugs SARIF to Code Scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: JoshHack/target/spotbugs.sarif
+          category: spotbugs
+
       - name: Upload PIT report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4 
         with:
           name: pit-report
           path: JoshHack/target/pit-reports/
