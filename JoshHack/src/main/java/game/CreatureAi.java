@@ -3,13 +3,20 @@ package game;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class CreatureAi {
 	protected Creature creature;
+	protected Random random;
 	private Map<String, String> itemNames;
 	
 	public CreatureAi(Creature creature){
+		this(creature, new Random());
+	}
+
+	public CreatureAi(Creature creature, Random random){
 		this.creature = creature;
+		this.random = random;
 		this.creature.setCreatureAi(this);
 		this.itemNames = new HashMap<String, String>();
 	}
@@ -58,8 +65,8 @@ public class CreatureAi {
 	}
 	
 	public void wander(){
-		int mx = (int)(Math.random() * 3) - 1;
-		int my = (int)(Math.random() * 3) - 1;
+		int mx = random.nextInt(3) - 1;
+		int my = random.nextInt(3) - 1;
 		
 		Creature other = creature.creature(creature.x + mx, creature.y + my, creature.z);
 		

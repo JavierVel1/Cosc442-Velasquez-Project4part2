@@ -1,11 +1,17 @@
 package game;
 
+import java.util.Random;
 
 public class GoblinAi extends CreatureAi {
 	private Creature player;
 	
 	public GoblinAi(Creature creature, Creature player) {
 		super(creature);
+		this.player = player;
+	}
+
+	public GoblinAi(Creature creature, Creature player, Random random) {
+		super(creature, random);
 		this.player = player;
 	}
 
