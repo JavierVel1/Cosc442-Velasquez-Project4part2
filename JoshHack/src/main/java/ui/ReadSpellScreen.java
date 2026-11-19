@@ -59,12 +59,11 @@ public class ReadSpellScreen implements Screen {
 	public Screen respondToUserInput(KeyEvent key) {
 		char c = key.getKeyChar();
 
-		Item[] items = player.inventory().getItems();
-		
-		if (letters.indexOf(c) > -1 
-				&& items.length > letters.indexOf(c)
-				&& items[letters.indexOf(c)] != null) {
-			return use(item.writtenSpells().get(letters.indexOf(c)));
+		int index = letters.indexOf(c);
+		if (index > -1
+				&& index < player.inventory().size()
+				&& player.inventory().get(index) != null) {
+			return use(player.inventory().get(index).writtenSpells().get(letters.indexOf(c)));
 		} else if (key.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			return null;
 		} else {

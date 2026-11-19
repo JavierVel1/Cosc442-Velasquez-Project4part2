@@ -217,16 +217,17 @@ public class CreatureTest {
         creature.inventory().add(potion);
 
         creature.quaff(potion);
-        assertEquals(1, effect.starts);
+        TrackingEffect activeEffect = (TrackingEffect) creature.effects().get(0);
+        assertEquals(1, activeEffect.starts);
         assertEquals(1, creature.effects().size());
 
         creature.update();
-        assertEquals(1, effect.updates);
+        assertEquals(1, activeEffect.updates);
         assertEquals(1, creature.effects().size());
 
         creature.update();
-        assertEquals(2, effect.updates);
-        assertEquals(1, effect.ends);
+        assertEquals(2, activeEffect.updates);
+        assertEquals(1, activeEffect.ends);
         assertTrue(creature.effects().isEmpty());
     }
 

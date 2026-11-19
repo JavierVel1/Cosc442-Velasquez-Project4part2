@@ -9,7 +9,7 @@ public class Spell {
 	public int manaCost() { return manaCost; }
 
 	private Effect effect;
-	public Effect effect() { return new Effect(effect); }
+	public Effect effect() { return effect == null ? null : effect.copy(); }
 
 	public boolean requiresTarget() { return true; }
 	

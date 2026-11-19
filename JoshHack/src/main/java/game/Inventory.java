@@ -1,10 +1,21 @@
 package game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Inventory {
 
 	private Item[] items;
-	public Item[] getItems() { return items; }
+	public List<Item> getItems() {
+		List<Item> snapshot = new ArrayList<Item>();
+		for (Item item : items) {
+			if (item != null)
+				snapshot.add(item);
+		}
+		return List.copyOf(snapshot);
+	}
 	public Item get(int i) { return items[i]; }
+	public int size() { return items.length; }
 	
 	public Inventory(int max){
 		items = new Item[max];

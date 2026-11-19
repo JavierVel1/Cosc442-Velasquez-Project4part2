@@ -41,10 +41,9 @@ public abstract class InventoryBasedScreen implements Screen {
 	
 	private ArrayList<String> getList() {
 		ArrayList<String> lines = new ArrayList<String>();
-		Item[] inventory = player.inventory().getItems();
 		
-		for (int i = 0; i < inventory.length; i++){
-			Item item = inventory[i];
+		for (int i = 0; i < player.inventory().size(); i++){
+			Item item = player.inventory().get(i);
 			
 			if (item == null || !isAcceptable(item))
 				continue;
@@ -62,13 +61,12 @@ public abstract class InventoryBasedScreen implements Screen {
 	public Screen respondToUserInput(KeyEvent key) {
 		char c = key.getKeyChar();
 
-		Item[] items = player.inventory().getItems();
-		
-		if (letters.indexOf(c) > -1 
-				&& items.length > letters.indexOf(c)
-				&& items[letters.indexOf(c)] != null
-				&& isAcceptable(items[letters.indexOf(c)])) {
-			return use(items[letters.indexOf(c)]);
+		int index = letters.indexOf(c);
+		if (index > -1
+				&& index < player.inventory().size()
+				&& player.inventory().get(index) != null
+				&& isAcceptable(player.inventory().get(index))) {
+			return use(player.inventory().get(index));
 		} else if (key.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			return null;
 		} else {

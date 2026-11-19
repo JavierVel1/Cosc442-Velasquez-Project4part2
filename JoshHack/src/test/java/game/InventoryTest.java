@@ -2,10 +2,24 @@ package game;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.awt.Color;
 import org.junit.jupiter.api.Test; 
 public class InventoryTest {
+    @Test
+    void getItemsReturnsDefensiveListCopy() {
+        Inventory inventory = new Inventory(2);
+        Item item = new Item('A', new java.awt.Color(255, 0, 0), "Chest", null);
+        inventory.add(item);
+
+        java.util.List<Item> snapshot = inventory.getItems();
+        assertThrows(UnsupportedOperationException.class, snapshot::clear);
+
+        assertTrue(inventory.contains(item));
+        assertEquals(item, inventory.get(0));
+    }
     @Test
     void testRemoveVaild() {
         Inventory inventory = new Inventory(1);

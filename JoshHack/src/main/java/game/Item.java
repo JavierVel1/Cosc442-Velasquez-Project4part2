@@ -39,11 +39,17 @@ public class Item {
 	public void modifyRangedAttackValue(int amount) { rangedAttackValue += amount; }
 	
 	private Effect quaffEffect;
-	public Effect quaffEffect() { return quaffEffect; }
-	public void setQuaffEffect(Effect effect) { this.quaffEffect = effect; }
+	public Effect quaffEffect() {
+		return quaffEffect == null ? null : quaffEffect.copy();
+	}
+	public void setQuaffEffect(Effect effect) {
+		this.quaffEffect = effect == null ? null : effect.copy();
+	}
 	
 	private List<Spell> writtenSpells;
-	public List<Spell> writtenSpells() { return writtenSpells; }
+	public List<Spell> writtenSpells() {
+		return List.copyOf(writtenSpells);
+	}
 	
 	public void addWrittenSpell(String name, int manaCost, Effect effect){
 		writtenSpells.add(new Spell(name, manaCost, effect));
