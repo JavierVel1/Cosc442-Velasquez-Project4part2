@@ -9,6 +9,24 @@ import org.junit.jupiter.api.Test;
 class WorldBuilderTest {
 
     @Test
+    void worldReturnsBoundsTileOutsideAnyDimension() {
+        Tile[][][] tiles = new Tile[3][4][2];
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 4; y++) {
+                for (int z = 0; z < 2; z++) {
+                    tiles[x][y][z] = Tile.FLOOR;
+                }
+            }
+        }
+        World world = new World(tiles);
+
+        assertEquals(Tile.BOUNDS, world.tile(-1, 0, 0));
+        assertEquals(Tile.BOUNDS, world.tile(3, 0, 0));
+        assertEquals(Tile.BOUNDS, world.tile(0, 4, 0));
+        assertEquals(Tile.BOUNDS, world.tile(0, 0, 2));
+    }
+
+    @Test
     void makeCavesBuildsACompleteWorldWithAValidExit() {
         int width = 90;
         int height = 32;
